@@ -10,7 +10,8 @@ pipeline {
 
     stage('Test') {
       steps {
-        bat 'mvn test'
+        tool(name: 'maven', type: 'maven_3.6.3')
+        sh 'mvn test'
       }
     }
 
