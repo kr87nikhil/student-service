@@ -1,5 +1,9 @@
 pipeline {
   agent any
+  tools {
+    maven 'maven_3.6.3'
+  }
+  
   stages {
     stage('Build') {
       parallel {
@@ -42,8 +46,5 @@ pipeline {
       }
     }
 
-  }
-  tools {
-    maven 'maven_3.6.3'
   }
 }
