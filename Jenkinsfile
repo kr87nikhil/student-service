@@ -26,26 +26,9 @@ pipeline {
       }
     }
 
-    stage('Result') {
-      parallel {
-        stage('Report') {
-          steps {
-            junit 'target\\surefire-reports\\*.xml'
-          }
-        }
-
-        stage('Package') {
-          steps {
-            bat 'mvn package'
-          }
-        }
-
-      }
-    }
-
-    stage('Artifacts') {
+    stage('Report') {
       steps {
-        archiveArtifacts '**\\*.war'
+        junit 'target\\surefire-reports\\*.xml'
       }
     }
 
