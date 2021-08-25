@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        git(url: 'https://github.com/kr87nikhil/student-service', branch: 'develop', credentialsId: 'GitHub')
+        git(url: 'https://github.com/kr87nikhil/student-service', branch: 'main', credentialsId: 'GitHub')
         sh 'mvn compile'
       }
     }
