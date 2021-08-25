@@ -1,0 +1,24 @@
+pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        git(url: 'https://github.com/kr87nikhil/student-service.git', branch: 'develop', credentialsId: 'GitHub', poll: true)
+        sh 'mvn compile'
+      }
+    }
+
+    stage('Test') {
+      steps {
+        sh 'mvn test'
+      }
+    }
+
+    stage('Report') {
+      steps {
+        junit 'target/**/*.xml'
+      }
+    }
+
+  }
+}
