@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       parallel {
-        stage('Git') {
+        stage('Git Checkout') {
           steps {
             git(url: 'https://github.com/kr87nikhil/student-service', branch: 'main', credentialsId: 'GitHub')
           }
@@ -26,9 +26,26 @@ pipeline {
       }
     }
 
-    stage('Report') {
+    stage('Result') {
+      parallel {
+        stage('Report') {
+          steps {
+            junit 'target/**/*.xml'
+          }
+        }
+
+        stage('Package') {
+          steps {
+            bat 'mvn package'
+          }
+        }
+
+      }
+    }
+
+    stage('Artifacts') {
       steps {
-        junit 'target/**/*.xml'
+        archiveArtifacts '**/*.war'
       }
     }
 
