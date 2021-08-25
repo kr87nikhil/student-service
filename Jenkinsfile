@@ -1,10 +1,5 @@
 pipeline {
   agent any
-  
-  tools {
-    maven 'maven_3.6.3'
-  }
-
   stages {
     stage('Build') {
       parallel {
@@ -13,11 +8,13 @@ pipeline {
             git(url: 'https://github.com/kr87nikhil/student-service', branch: 'main', credentialsId: 'GitHub')
           }
         }
+
         stage('Compile') {
           steps {
             bat 'mvn clean compile'
           }
         }
+
       }
     }
 
@@ -29,17 +26,24 @@ pipeline {
 
     stage('Report') {
       parallel {
-        stage('Test Report'){
+        stage('Test Report') {
           steps {
             junit 'target/surefire-reports/TEST-*.xml'
           }
         }
-        stage('Package'){
-          steps{
+
+        stage('Package') {
+          steps {
+            bat 'mvn package'
             archiveArtifacts 'target/*.jar'
           }
         }
+
       }
     }
+
+  }
+  tools {
+    maven 'maven_3.6.3'
   }
 }
