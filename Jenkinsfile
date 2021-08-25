@@ -30,7 +30,7 @@ pipeline {
       parallel {
         stage('Report') {
           steps {
-            junit 'target/**/*.xml'
+            junit 'target\\surefire-reports\\*.xml'
           }
         }
 
@@ -45,7 +45,7 @@ pipeline {
 
     stage('Artifacts') {
       steps {
-        archiveArtifacts '**/*.war'
+        archiveArtifacts '**\\*.war'
       }
     }
 
