@@ -22,7 +22,7 @@ pipeline {
     stage('Test') {
       steps {
         tool(name: 'maven_3.6.3', type: 'maven')
-        sh 'mvn test'
+        bat 'mvn test'
       }
     }
 
