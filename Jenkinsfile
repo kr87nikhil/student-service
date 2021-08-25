@@ -11,7 +11,7 @@ pipeline {
 
         stage('Compile') {
           steps {
-            tool(name: 'maven', type: 'maven_3.6.3')
+            tool(name: 'maven_3.6.3', type: 'maven')
             bat 'mvn compile'
           }
         }
