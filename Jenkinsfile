@@ -45,11 +45,11 @@ pipeline {
 
       }
     }
-
-    post {
-      always {
-        emailext body: '', subject: '', to: $DEFAULT_RECIPIENTS
-      }
+  }
+  
+  post {
+    always {
+      emailext body: '', subject: '', to: $DEFAULT_RECIPIENTS
     }
   }
 }
