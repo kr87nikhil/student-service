@@ -46,10 +46,10 @@ pipeline {
       }
     }
   }
-  
+
   post {
     always {
-      emailext body: '', subject: '', to: $DEFAULT_RECIPIENTS
+      emailext body: '', recipientProviders: [developers(), requestor()], subject: ''
     }
   }
 }
