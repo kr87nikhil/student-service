@@ -49,7 +49,7 @@ pipeline {
 
   post {
     always {
-      emailext body: '', recipientProviders: [developers(), requestor()], subject: ''
+      emailext body: '$DEFAULT_CONTENT', recipientProviders: [developers(), requestor()], subject: '$DEFAULT_SUBJECT'
     }
   }
 }
