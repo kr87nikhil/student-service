@@ -15,18 +15,16 @@ pipeline {
 
         stage('Compile') {
           steps {
-            bat 'mvn clean install'
+            bat 'mvn clean compile'
           }
         }
-
       }
     }
 
     stage('SonarQube Analysis') {
       steps {
         withSonarQubeEnv(credentialsId: 'sonarQube_localhost', installationName: 'sonarQube_localhost') {
-          bat ''' 
-              mvn sonar:sonar \
+          bat '''mvn sonar:sonar' \
                 -Dsonar.projectKey = student-service \
                 -Dsonar.projectName = Stundent Registration \
                 -Dsonar.projectVersion = 1.0 \
@@ -34,7 +32,7 @@ pipeline {
                 -Dsonar.sonar.binaries = target/classes \
                 -Dsonar.language = Java \
                 -Dsonar.sourceEncoding = UTF-8
-              '''
+              ''''
         }
       }
     }
