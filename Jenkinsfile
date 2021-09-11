@@ -23,16 +23,16 @@ pipeline {
 
     stage('SonarQube Analysis') {
       steps {
-        withSonarQubeEnv(credentialsId: 'sonarQube_localhost', installationName: 'sonarQube_localhost') {
+        withSonarQubeEnv(credentialsId: 'sonarQube_localhost', installationName: 'My SonarQube Server') {
           bat '''
-              mvn sonar:sonar \
-                -Dsonar.projectKey = student-service \
-                -Dsonar.projectName = Stundent Registration \
-                -Dsonar.projectVersion = 1.0 \
-                -Dsonar.sonar.sources = src \
-                -Dsonar.sonar.binaries = target/classes \
-                -Dsonar.language = Java \
-                -Dsonar.sourceEncoding = UTF-8
+              mvn install sonar:sonar ^
+                -Dsonar.sonar.projectKey=student-service ^
+                -Dsonar.sonar.projectName=Stundent-Registration ^
+                -Dsonar.sonar.projectVersion=0.0.1-SNAPSHOT ^
+                -Dsonar.sonar.sources=src ^
+                -Dsonar.sonar.binaries=target/classes ^
+                -Dsonar.sonar.language=Java ^
+                -Dsonar.sonar.sourceEncoding=UTF-8
               '''
         }
       }
