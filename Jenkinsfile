@@ -25,7 +25,8 @@ pipeline {
     stage('SonarQube Analysis') {
       steps {
         withSonarQubeEnv(credentialsId: 'sonarQube_localhost', installationName: 'sonarQube_localhost') {
-          bat '''
+          bat ''' 
+                mvn sonar:sonar \
                 -Dsonar.projectKey = student-service \
                 -Dsonar.projectName = Stundent Registration \
                 -Dsonar.projectVersion = 1.0 \
@@ -34,7 +35,6 @@ pipeline {
                 -Dsonar.language = Java \
                 -Dsonar.sourceEncoding = UTF-8
               '''
-          sh 'mvn sonar:sonar'
         }
       }
     }
