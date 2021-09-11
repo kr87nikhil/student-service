@@ -22,6 +22,33 @@ pipeline {
       }
     }
 
+    stage('SonarQube Analysis') {
+      steps {
+        withSonarQubeEnv(credentialsId: 'sonarQube_localhost') {
+          bat ''' \
+                -Dsonar.projectKey = manual-student-service \
+                -Dsonar.projectName = Stundent Registration \
+                -Dsonar.projectVersion = 1.0 \
+                -Dsonar.sonar.sources = src
+                -Dsonar.sonar.binaries = target/classes
+                -Dsonar.language = Java
+                -Dsonar.sourceEncoding = UTF-8
+              '''
+          sh 'mvn sonar:sonar'
+        }
+      }
+    }
+
+    stage('Quality Gate') {
+      steps {
+        timeout(time: 2, unit: 'MINUTES') {
+          // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+          // true = set pipeline to UNSTABLE, false = don't
+          waitForQualityGate abortPipeline: true
+        }
+      }
+    }
+
     stage('Test') {
       steps {
         bat 'mvn test'
@@ -48,7 +75,7 @@ pipeline {
   }
 
   post {
-    always {
+    failure {
       emailext body: '$DEFAULT_CONTENT', recipientProviders: [developers(), requestor()], subject: '$DEFAULT_SUBJECT'
     }
   }
