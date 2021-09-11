@@ -24,7 +24,7 @@ pipeline {
 
     stage('SonarQube Analysis') {
       steps {
-        withSonarQubeEnv(credentialsId: 'sonarQube_localhost') {
+        withSonarQubeEnv(credentialsId: 'sonarQube_localhost', installationName: 'mySonarQube') {
           bat ''' \
                 -Dsonar.projectKey = manual-student-service \
                 -Dsonar.projectName = Stundent Registration \
