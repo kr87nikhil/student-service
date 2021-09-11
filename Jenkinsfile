@@ -15,7 +15,7 @@ pipeline {
 
         stage('Compile') {
           steps {
-            bat 'mvn clean compile'
+            bat 'mvn clean install'
           }
         }
 
@@ -26,7 +26,7 @@ pipeline {
       steps {
         withSonarQubeEnv(credentialsId: 'sonarQube_localhost', installationName: 'sonarQube_localhost') {
           bat ''' 
-                mvn sonar:sonar \
+              mvn sonar:sonar \
                 -Dsonar.projectKey = student-service \
                 -Dsonar.projectName = Stundent Registration \
                 -Dsonar.projectVersion = 1.0 \
