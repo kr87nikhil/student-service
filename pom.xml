@@ -42,7 +42,7 @@
 			<plugin>
 				<groupId>org.sonarsource.scanner.maven</groupId>
 				<artifactId>sonar-maven-plugin</artifactId>
-				<version>3.6.0.1398</version>
+				<version>4.6.2.2472</version>
 			</plugin>
 		</plugins>
 	</build>
