@@ -1,6 +1,6 @@
-name: Pull request using Ghcr
+name: Pull request using GHCR
 on:
-  push:
+  pull_request:
     branches: [ main ]
 
 jobs:
