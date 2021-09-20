@@ -11,7 +11,6 @@ RUN chmod +x mvnw
 RUN ./mvnw dependency:go-offline
 
 COPY src ./src
-EXPOSE 8080
 
 FROM base.jdk AS test
 CMD ["./mvnw", "test"]
@@ -23,5 +22,6 @@ FROM base.jdk AS build
 RUN ./mvnw package
 
 FROM openjdk:11-jre-slim AS production
+EXPOSE 8080
 COPY --from=build /app/target/student-service-*.jar /student-service.jar
 CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/student-service.jar"]
