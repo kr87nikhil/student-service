@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM openjdk:16-alpine3.13 AS baseImage
+FROM openjdk:16-alpine3.13 AS base.jdk
 
 LABEL image.author="Nikhil Kumar"
 
@@ -12,13 +12,13 @@ RUN ./mvnw dependency:go-offline
 COPY src ./src
 EXPOSE 8080
 
-FROM baseImage AS test
+FROM base.jdk AS test
 CMD ["./mvnw", "test"]
 
-FROM baseImage AS development
-CMD ["./mvnw", "spring-boot:run", "-Dspring-boot.run.jvmArguments='-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8080'"]
+FROM base.jdk AS development
+CMD ["./mvnw", "spring-boot:run", "-Dspring-boot.run.jvmArguments='-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000'"]
 
-FROM baseImage AS build
+FROM base.jdk AS build
 CMD ./mvnw package
 
 FROM openjdk:11-jre-slim AS production
