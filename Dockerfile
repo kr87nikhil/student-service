@@ -20,7 +20,7 @@ FROM base.jdk AS development
 CMD ["./mvnw", "spring-boot:run", "-Dspring-boot.run.jvmArguments='-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000'"]
 
 FROM base.jdk AS build
-CMD ./mvnw package
+RUN ./mvnw package
 
 FROM openjdk:11-jre-slim AS production
 COPY --from=build /app/target/student-service-*.jar /student-service.jar
