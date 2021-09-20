@@ -9,7 +9,7 @@ pipeline {
       parallel {
         stage('Git Checkout') {
           steps {
-            git(url: 'https://github.com/kr87nikhil/student-service', branch: 'main', credentialsId: 'GitHub')
+            git(url: 'https://github.com/kr87nikhil/student-service.git', branch: 'main', credentialsId: 'GitHub')
           }
         }
 
